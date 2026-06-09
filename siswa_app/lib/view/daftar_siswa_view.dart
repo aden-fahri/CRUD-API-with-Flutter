@@ -5,6 +5,7 @@ import '../core/app_theme.dart';
 import '../models/siswa_model.dart';
 import '../viewmodel/siswa_viewmodel.dart';
 import 'form_siswa_view.dart';
+import 'detail_siswa_view.dart';
 
 class DaftarSiswaView extends StatefulWidget {
   const DaftarSiswaView({super.key});
@@ -72,11 +73,24 @@ class _DaftarSiswaViewState extends State<DaftarSiswaView>
   Widget _buildSummaryCard(int total) {
     return Container(
       margin: const EdgeInsets.all(16),
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColors.primary,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: AppColors.cardShadow,
+        gradient: const LinearGradient(
+          colors: [
+            AppColors.primary,
+            Color(0xFF6B2FF8),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.2),
+            blurRadius: 16,
+            offset: const Offset(0, 8),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,7 +104,7 @@ class _DaftarSiswaViewState extends State<DaftarSiswaView>
                   Text(
                     total.toString(),
                     style: GoogleFonts.inter(
-                      fontSize: 32,
+                      fontSize: 36,
                       fontWeight: FontWeight.w800,
                       color: Colors.white,
                     ),
@@ -107,8 +121,8 @@ class _DaftarSiswaViewState extends State<DaftarSiswaView>
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.1),
-                  borderRadius: BorderRadius.circular(12),
+                  color: Colors.white.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(14),
                 ),
                 child: const Icon(Icons.groups_rounded, color: AppColors.secondary, size: 28),
               ),
@@ -140,26 +154,49 @@ class _DaftarSiswaViewState extends State<DaftarSiswaView>
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.5)),
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.08), width: 1.2),
         boxShadow: AppColors.cardShadow,
       ),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => DetailSiswaView(siswaId: siswa.id!),
+            ),
+          );
+        },
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         leading: CircleAvatar(
-          backgroundColor: AppColors.surfaceContainer,
+          radius: 24,
+          backgroundColor: AppColors.primary.withValues(alpha: 0.1),
           child: Text(
             siswa.nama[0].toUpperCase(),
-            style: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.bold),
+            style: GoogleFonts.inter(
+              color: AppColors.primary,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
           ),
         ),
         title: Text(
           siswa.nama,
-          style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 16),
+          style: GoogleFonts.inter(
+            fontWeight: FontWeight.w700,
+            fontSize: 16,
+            color: AppColors.onSurface,
+          ),
         ),
-        subtitle: Text(
-          'NIS: ${siswa.nis} • Kelas ${siswa.kelas}',
-          style: GoogleFonts.inter(fontSize: 13),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 4),
+          child: Text(
+            'NIS: ${siswa.nis} • Kelas ${siswa.kelas}',
+            style: GoogleFonts.inter(
+              fontSize: 13,
+              color: AppColors.onSurfaceVariant,
+            ),
+          ),
         ),
         trailing: PopupMenuButton<String>(
           icon: const Icon(Icons.more_vert_rounded),
@@ -270,33 +307,6 @@ class _DaftarSiswaViewState extends State<DaftarSiswaView>
             ),
           );
         },
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: (index) {
-          if (index == 2) {
-            _navigateToAdd(context);
-          } else {
-            setState(() => _selectedIndex = index);
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.dashboard_outlined),
-            activeIcon: Icon(Icons.dashboard_rounded),
-            label: 'Beranda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.groups_outlined),
-            activeIcon: Icon(Icons.groups_rounded),
-            label: 'Siswa',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_add_outlined),
-            activeIcon: Icon(Icons.person_add_rounded),
-            label: 'Tambah',
-          ),
-        ],
       ),
     );
   }

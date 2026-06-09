@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../core/app_theme.dart';
-import 'daftar_siswa_view.dart';
+import 'main_shell_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -19,7 +19,7 @@ class _SplashViewState extends State<SplashView> {
       if (mounted) {
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => const DaftarSiswaView()),
+          MaterialPageRoute(builder: (_) => const MainShellView()),
         );
       }
     });

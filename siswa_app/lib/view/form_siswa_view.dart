@@ -76,12 +76,16 @@ class _FormSiswaViewState extends State<FormSiswaView> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Icon(Icons.check_circle, color: Color(0xFF1A6B3A), size: 18),
+          const Icon(Icons.check_circle_rounded, color: AppColors.primary, size: 18),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               text,
-              style: GoogleFonts.inter(fontSize: 13, color: AppColors.onSurfaceVariant),
+              style: GoogleFonts.inter(
+                fontSize: 13,
+                color: AppColors.onSurfaceVariant,
+                height: 1.4,
+              ),
             ),
           ),
         ],
@@ -100,7 +104,7 @@ class _FormSiswaViewState extends State<FormSiswaView> {
         ),
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -113,7 +117,7 @@ class _FormSiswaViewState extends State<FormSiswaView> {
               'Lengkapi data di bawah ini untuk mendaftarkan siswa baru ke sistem.',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 28),
 
             // Form
             Form(
@@ -125,7 +129,6 @@ class _FormSiswaViewState extends State<FormSiswaView> {
                     decoration: const InputDecoration(
                       labelText: 'Nama Lengkap',
                       hintText: 'Contoh: Aditya Pratama',
-                      border: OutlineInputBorder(),
                     ),
                     validator: (v) => v!.isEmpty ? 'Nama tidak boleh kosong' : null,
                   ),
@@ -135,7 +138,6 @@ class _FormSiswaViewState extends State<FormSiswaView> {
                     decoration: const InputDecoration(
                       labelText: 'NIS',
                       hintText: 'Contoh: 202104592',
-                      border: OutlineInputBorder(),
                     ),
                     validator: (v) => v!.isEmpty ? 'NIS tidak boleh kosong' : null,
                   ),
@@ -145,7 +147,6 @@ class _FormSiswaViewState extends State<FormSiswaView> {
                     decoration: const InputDecoration(
                       labelText: 'Kelas',
                       hintText: 'Contoh: X-IPA-1',
-                      border: OutlineInputBorder(),
                     ),
                     validator: (v) => v!.isEmpty ? 'Kelas tidak boleh kosong' : null,
                   ),
@@ -154,27 +155,46 @@ class _FormSiswaViewState extends State<FormSiswaView> {
             ),
             const SizedBox(height: 32),
 
-            // Tips Section
-            Text(
-              'Tips Pengisian',
-              style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 16),
+            // Tips Section wrapped in a premium card
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withValues(alpha: 0.05),
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: AppColors.primary.withValues(alpha: 0.1), width: 1.5),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.lightbulb_rounded, color: AppColors.primary, size: 20),
+                      const SizedBox(width: 8),
+                      Text(
+                        'Tips Pengisian',
+                        style: GoogleFonts.inter(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 16,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  _buildTipItem('Pastikan NIS belum pernah terdaftar sebelumnya di sistem.'),
+                  _buildTipItem('Gunakan huruf kapital di awal setiap kata pada nama lengkap.'),
+                  _buildTipItem('Data kelas akan menentukan daftar mata pelajaran siswa.'),
+                ],
+              ),
             ),
-            const SizedBox(height: 16),
-            _buildTipItem('Pastikan NIS belum pernah terdaftar sebelumnya di sistem.'),
-            _buildTipItem('Gunakan huruf kapital di awal setiap kata pada nama lengkap.'),
-            _buildTipItem('Data kelas akan menentukan daftar mata pelajaran siswa.'),
             
-            const SizedBox(height: 24),
+            const SizedBox(height: 32),
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 56,
               child: ElevatedButton(
                 onPressed: _handleSubmit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary,
-                  foregroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                ),
                 child: Text(
                   _isEditMode ? 'Simpan Perubahan' : 'Daftarkan Siswa',
                   style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 16),

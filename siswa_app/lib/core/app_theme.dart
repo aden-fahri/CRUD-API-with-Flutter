@@ -2,25 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppColors {
-  // Primary - Royal Blue
-  static const Color primary = Color(0xFF002366);
-  static const Color primaryContainer = Color(0xFF002366);
+  // Primary - Blush Pink (mapped to hex #4b00b2)
+  static const Color primary = Color(0xFF4B00B2);
+  static const Color primaryContainer = Color(0xFF4B00B2);
   static const Color onPrimary = Color(0xFFFFFFFF);
 
-  // Secondary - Electric Yellow
-  static const Color secondary = Color(0xFFFFD60A);
-  static const Color secondaryContainer = Color(0xFFFDD404);
-  static const Color onSecondary = Color(0xFF002366);
+  // Secondary - Light Lavender
+  static const Color secondary = Color(0xFFE6E6FA);
+  static const Color secondaryContainer = Color(0xFFECECFF);
+  static const Color onSecondary = Color(0xFF4B00B2);
 
   // Surface
-  static const Color surface = Color(0xFFF8F9FF);
-  static const Color surfaceContainer = Color(0xFFE5EEFF);
-  static const Color surfaceContainerHigh = Color(0xFFDCE9FF);
-  static const Color surfaceDim = Color(0xFFCBDBF5);
+  static const Color surface = Color(0xFFF9F9FE);
+  static const Color surfaceContainer = Color(0xFFECECFF);
+  static const Color surfaceContainerHigh = Color(0xFFE2E2FF);
+  static const Color surfaceDim = Color(0xFFD7D7FA);
 
   // On Colors
-  static const Color onSurface = Color(0xFF0B1C30);
-  static const Color onSurfaceVariant = Color(0xFF444650);
+  static const Color onSurface = Color(0xFF150B30);
+  static const Color onSurfaceVariant = Color(0xFF554A70);
 
   // Outline
   static const Color outline = Color(0xFF757682);
@@ -56,12 +56,12 @@ class AppTheme {
         brightness: Brightness.light,
         primary: AppColors.primary,
         onPrimary: AppColors.onPrimary,
-        primaryContainer: Color(0xFF002366),
-        onPrimaryContainer: Color(0xFFB3C5FF),
-        secondary: Color(0xFF705D00),
-        onSecondary: AppColors.onPrimary,
+        primaryContainer: AppColors.primaryContainer,
+        onPrimaryContainer: Color(0xFFE6E6FA),
+        secondary: AppColors.secondary,
+        onSecondary: AppColors.onSecondary,
         secondaryContainer: AppColors.secondaryContainer,
-        onSecondaryContainer: Color(0xFF6F5C00),
+        onSecondaryContainer: AppColors.primary,
         tertiary: Color(0xFF101518),
         onTertiary: AppColors.onPrimary,
         tertiaryContainer: Color(0xFF25292D),
@@ -128,14 +128,58 @@ class AppTheme {
       ),
       scaffoldBackgroundColor: AppColors.surface,
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.onPrimary,
+        backgroundColor: AppColors.surface,
+        foregroundColor: AppColors.onSurface,
         elevation: 0,
-        centerTitle: false,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: AppColors.primary),
         titleTextStyle: GoogleFonts.inter(
           fontSize: 18,
           fontWeight: FontWeight.w700,
-          color: AppColors.onPrimary,
+          color: AppColors.onSurface,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: const Color(0xFFF6F5FD),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide.none,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: AppColors.primary.withValues(alpha: 0.08), width: 1.5),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+        ),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: AppColors.error, width: 1.5),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: const BorderSide(color: AppColors.error, width: 2),
+        ),
+        labelStyle: GoogleFonts.inter(
+          color: AppColors.onSurfaceVariant,
+          fontWeight: FontWeight.w500,
+        ),
+        hintStyle: GoogleFonts.inter(
+          color: AppColors.onSurfaceVariant.withValues(alpha: 0.5),
+        ),
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
+          elevation: 4,
+          shadowColor: AppColors.primary.withValues(alpha: 0.25),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
         ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -156,8 +200,8 @@ class AppTheme {
         color: Colors.white,
         elevation: 0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-          side: const BorderSide(color: AppColors.outlineVariant, width: 1),
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: AppColors.primary.withValues(alpha: 0.08), width: 1),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       ),
